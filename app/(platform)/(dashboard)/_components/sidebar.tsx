@@ -53,9 +53,9 @@ const DashboardSideBar = ({ storageKey }: SideBarProps) => {
         </div>
 
         <div className="space-y-2">
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
+          {[...Array(8)].map((_, i) => (
+            <NavItem.Skeleton key={i} />
+          ))}
         </div>
       </>
     )
