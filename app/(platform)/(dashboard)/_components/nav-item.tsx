@@ -1,6 +1,6 @@
 'use client'
 
-import { Activity, Layout, Settings } from 'lucide-react'
+import { Activity, CreditCard, Layout, Settings } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -49,6 +49,11 @@ const NavItem = ({
       label: 'Setting',
       icon: <Settings className="mr-2 size-4" />,
       href: `/organization/${organization.id}/settings`
+    },
+    {
+      label: 'Billing',
+      icon: <CreditCard className="mr-2 size-4" />,
+      href: `/organization/${organization.id}/billing`
     }
   ]
 
