@@ -1,5 +1,4 @@
 import React, { PropsWithChildren } from 'react'
-
 import FooterBar from './_components/footer'
 import NavBar from './_components/navbar'
 

@@ -1,16 +1,22 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-
 import '../styles/globals.css'
+import { siteConfig } from '~/config/site'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'Trello',
-    template: '%s | Trello'
+    default: siteConfig.title,
+    template: `'%s | ${siteConfig.title}'`
   },
-  description: 'Trello clone'
+  description: siteConfig.description,
+  icons: [
+    {
+      url: '/logo.svg',
+      href: '/logo.svg'
+    }
+  ]
 }
 
 export default function RootLayout({

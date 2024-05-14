@@ -12,7 +12,6 @@ const NavBar = () => {
           <Button size="sm" variant="outline" asChild>
             <Link href="/sign-in">Login</Link>
           </Button>
-
           <Button>
             <Link href="/sign-up">Get Taskify for free</Link>
           </Button>
