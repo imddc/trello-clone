@@ -7,7 +7,6 @@ import Link from 'next/link'
 import React from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import { Button } from '~/components/ui/button'
-import { Separator } from '~/components/ui/separator'
 import { Skeleton } from '~/components/ui/skeleton'
 import NavItem, { Organization } from './nav-item'
 
@@ -46,7 +45,20 @@ const DashboardSideBar = ({ storageKey }: SideBarProps) => {
   }
 
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
-    return <Skeleton />
+    return (
+      <>
+        <div className="flex-between mb-2">
+          <Skeleton className="h-10 w-1/2" />
+          <Skeleton className="size-10" />
+        </div>
+
+        <div className="space-y-2">
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+        </div>
+      </>
+    )
   }
 
   return (
