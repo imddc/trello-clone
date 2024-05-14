@@ -1,29 +1,27 @@
 import React from 'react'
 import { db } from '~/lib/db'
+import OrganizationForm from './form'
 
 interface OrganizationIdPageProps {
   params: { organizationId: string }
 }
 
-const create = async (formData: FormData) => {
-  'use server'
-
-  const title = formData.get('title')
-  const res = await db.board.findMany()
-  console.log(title, res)
-}
-
-const OrganizationIdPage = ({
+const OrganizationIdPage = async ({
   params: { organizationId }
 }: OrganizationIdPageProps) => {
+  const boards = await db.board.findMany({
+    orderBy: {
+      createAt: 'desc'
+    }
+  })
+
   return (
-    <div>
-      OrganizationIdPage : {organizationId}
-      <form action={create}>
-        <label htmlFor="title">
-          <input type="text" name="title" className="border" />
-        </label>
-      </form>
+    <div className="w-full">
+      <OrganizationForm />
+
+      {boards.map((item) => (
+        <div key={item.id}>title: {item.title}</div>
+      ))}
     </div>
   )
 }
