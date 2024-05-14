@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 // export default clerkMiddleware({})
 export default authMiddleware({
   publicRoutes: ['/'],
+  // @ts-expect-error ts-expect-error
   afterAuth: async (auth, req) => {
     const { orgId, userId, isPublicRoute } = auth
     if (userId && isPublicRoute) {
