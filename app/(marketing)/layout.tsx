@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 
+import FooterBar from './_components/footer'
 import NavBar from './_components/navbar'
 
 interface MarketingLayoutProps extends PropsWithChildren {}
@@ -12,7 +13,7 @@ const MarketingLayout = ({ children }: MarketingLayoutProps) => {
       <main className="bg-slate-100 pb-20 pt-40">{children}</main>
 
       {/* footer */}
-      {/* <footer className="bg-slate-100"></footer> */}
+      <FooterBar />
     </div>
   )
 }
