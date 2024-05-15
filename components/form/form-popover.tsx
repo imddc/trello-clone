@@ -13,6 +13,7 @@ import {
 } from '~/components/ui/popover'
 import { useAction } from '~/hooks/useAction'
 import FormInput from './form-input'
+import FormPicker from './form-picker'
 import FormSubmit from './form-submit'
 
 interface FormPopoverProps extends PropsWithChildren {
@@ -56,6 +57,7 @@ const FormPopover = ({
           <div className="pb-4 text-center text-sm font-medium text-neutral-600">
             Create Board
           </div>
+
           <PopoverClose asChild>
             <Button
               className="absolute right-2 top-2 size-auto p-2 text-neutral-600"
@@ -64,6 +66,8 @@ const FormPopover = ({
               <X className="size-4" />
             </Button>
           </PopoverClose>
+
+          <FormPicker id="image" errors={fieldErrors} />
 
           <form action={onSubmit}>
             <div className="space-y-4">
