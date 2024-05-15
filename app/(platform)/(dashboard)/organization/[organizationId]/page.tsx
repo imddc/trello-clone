@@ -9,7 +9,7 @@ const OrganizationIdPage = async ({}: OrganizationIdPageProps) => {
   return (
     <div className="mb-20 w-full">
       <OrganizationIdInfo />
-      <Separator className="px-2 md:px-4" />
+      <Separator className="my-4" />
       <div className="px-2 md:px-4">
         <OrganizationIdBoardList />
       </div>

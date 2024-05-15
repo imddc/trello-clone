@@ -1,3 +1,5 @@
+'use client'
+
 import { XCircleIcon } from 'lucide-react'
 import React from 'react'
 

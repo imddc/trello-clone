@@ -10,7 +10,7 @@ const OrganizationIdInfo = () => {
   const { organization, isLoaded } = useOrganization()
 
   if (!isLoaded) {
-    return '...loading'
+    return <OrganizationIdInfo.Skeleton />
   }
 
   return (
