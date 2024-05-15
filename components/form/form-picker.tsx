@@ -28,7 +28,6 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
       })
       if (result && result.response) {
         setImages(result.response as ImageType[])
-        console.log(result.response)
       } else {
         console.error('sorry, can not fetch images')
       }
@@ -68,6 +67,7 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
             }}
           >
             <input
+              readOnly
               type="radio"
               id={id}
               name={id}
