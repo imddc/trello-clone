@@ -1,25 +1,26 @@
 'use client'
 
 import React from 'react'
-import { useFormState  } from 'react-dom'
-import { create, type State } from '~/actions/create-board'
-import FormButton from './form-button'
+import { createBoard } from '~/actions/create-board'
+import { useAction } from '~/hooks/useAction'
 import FormInput from './form-input'
 
 const OrganizationForm = () => {
-  const initialState: State = { message: null, errors: {} }
-  const [state, dispatch] = useFormState(create, initialState)
+  const { execute, fieldErrors } = useAction(createBoard, {
+    onError(error) {
+      console.log(error)
+    },
+    onSuccess(data) {
+      console.log(data)
+    }
+  })
+  const onSubmit = (forData: FormData) => {
+    execute({ title: forData.get('title') as string })
+  }
 
   return (
-    <form action={dispatch}>
-      <div className="flex items-center gap-4">
-        <FormInput />
-        <FormButton />
-      </div>
-
-      <div className="p-2 text-red-600">
-        {state?.errors && state?.errors?.title?.map((t) => <p key={t}>{t}</p>)}
-      </div>
+    <form action={onSubmit}>
+      <FormInput fieldErrors={fieldErrors} />
     </form>
   )
 }
