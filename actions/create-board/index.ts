@@ -8,22 +8,43 @@ import { CreateBoard } from './schema'
 import { InputType, ReturnType } from './types'
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId } = auth()
+  const { userId, orgId } = auth()
 
-  if (!userId) {
+  if (!userId || !orgId) {
     return {
       error: 'unauthorized'
     }
   }
 
-  const { title } = data
+  const { title, image } = data
+
+  const [imageId, imageThumbUrl, imageFullUrl, imageUserName, imageLinkHTML] =
+    image.split('|')
+
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageUserName ||
+    !imageLinkHTML
+  ) {
+    return {
+      error: 'Invalid image'
+    }
+  }
 
   let board
 
   try {
     board = await db.board.create({
       data: {
-        title
+        title,
+        orgId,
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageUserName,
+        imageLinkHTML
       }
     })
   } catch (error) {

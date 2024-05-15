@@ -40,7 +40,8 @@ const FormPopover = ({
   })
   const onSubmit = (formData: FormData) => {
     const title = formData.get('title') as string
-    execute({ title })
+    const image = formData.get('image') as string
+    execute({ title, image })
   }
 
   return (
@@ -67,10 +68,9 @@ const FormPopover = ({
             </Button>
           </PopoverClose>
 
-          <FormPicker id="image" errors={fieldErrors} />
-
           <form action={onSubmit}>
             <div className="space-y-4">
+              <FormPicker id="image" errors={fieldErrors} />
               <FormInput
                 errors={fieldErrors}
                 id="title"

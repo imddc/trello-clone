@@ -17,10 +17,12 @@ const OrganizationIdInfo = () => {
     <div className="flex items-center gap-x-4">
       <div className="relative size-[60px]">
         <Image
+          sizes="60px"
           fill
           src={organization?.imageUrl!}
           alt="organization"
           className="rounded-md object-cover"
+          priority
         />
       </div>
 
