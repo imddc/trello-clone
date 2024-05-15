@@ -2,8 +2,9 @@
 
 import React from 'react'
 import { createBoard } from '~/actions/create-board'
+import FormInput from '~/components/form/form-input'
+import { Button } from '~/components/ui/button'
 import { useAction } from '~/hooks/useAction'
-import FormInput from './form-input'
 
 const OrganizationForm = () => {
   const { execute, fieldErrors } = useAction(createBoard, {
@@ -20,7 +21,9 @@ const OrganizationForm = () => {
 
   return (
     <form action={onSubmit}>
-      <FormInput fieldErrors={fieldErrors} />
+      <div className="flex flex-col space-y-2">
+        <FormInput label="title" id="title" errors={fieldErrors} />
+      </div>
     </form>
   )
 }
