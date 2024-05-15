@@ -1,27 +1,18 @@
 import React from 'react'
-import { db } from '~/lib/db'
-import OrganizationForm from './form'
+import { Separator } from '~/components/ui/separator'
+import OrganizationIdBoardList from './_components/board-list'
+import OrganizationIdInfo from './_components/info'
 
-interface OrganizationIdPageProps {
-  params: { organizationId: string }
-}
+interface OrganizationIdPageProps {}
 
-const OrganizationIdPage = async ({
-  params: { organizationId }
-}: OrganizationIdPageProps) => {
-  const boards = await db.board.findMany({
-    orderBy: {
-      createAt: 'desc'
-    }
-  })
-
+const OrganizationIdPage = async ({}: OrganizationIdPageProps) => {
   return (
-    <div className="w-full">
-      <OrganizationForm />
-
-      {boards.map((item) => (
-        <div key={item.id}>title: {item.title}</div>
-      ))}
+    <div className="mb-20 w-full">
+      <OrganizationIdInfo />
+      <Separator className="px-2 md:px-4" />
+      <div className="px-2 md:px-4">
+        <OrganizationIdBoardList />
+      </div>
     </div>
   )
 }
