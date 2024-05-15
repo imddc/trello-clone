@@ -2,6 +2,7 @@
 
 import { X } from 'lucide-react'
 import React, { PropsWithChildren } from 'react'
+import { toast } from 'sonner'
 import { createBoard } from '~/actions/create-board'
 import { Button } from '~/components/ui/button'
 import {
@@ -29,6 +30,11 @@ const FormPopover = ({
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess(data) {
       console.log(data)
+      toast.success('board created')
+    },
+    onError(error) {
+      console.log(error)
+      toast.error('board creation failed')
     }
   })
   const onSubmit = (formData: FormData) => {
