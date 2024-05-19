@@ -19,7 +19,7 @@ const MarketingPage = () => {
   return (
     <div className="flex-col-center">
       <div className={cn('flex-col-center', headingFont.className)}>
-        <div className="flex-center mb-4 rounded-full border bg-amber-100 p-4 uppercase text-amber-700 shadow-sm">
+        <div className="mb-4 flex items-center justify-center rounded-full border bg-amber-100 p-4 uppercase text-amber-700 shadow-sm">
           <Medal className="mr-2 size-6" />
           No 1 task management
         </div>
