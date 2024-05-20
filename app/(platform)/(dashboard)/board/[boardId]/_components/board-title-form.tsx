@@ -22,6 +22,9 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
       toast.success(`board ${data.title} updated~`)
       disableEditing()
       setTitle(data.title)
+    },
+    onError(err) {
+      toast.error(err)
     }
   })
 
