@@ -4,7 +4,7 @@ import { List } from 'prisma/prisma-client'
 import React, { ElementRef, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { useEventListener } from 'usehooks-ts'
-import { updataBoard } from '~/actions/update-board'
+import { updataList } from '~/actions/update-list'
 import FormInput from '~/components/form/form-input'
 import { useAction } from '~/hooks/useAction'
 
@@ -17,9 +17,10 @@ const ListHeader = ({ data }: ListHeaderProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<ElementRef<'input'>>(null)
   const formRef = useRef<ElementRef<'form'>>(null)
-  const { execute, fieldErrors } = useAction(updataBoard, {
+  const { execute, fieldErrors } = useAction(updataList, {
     onSuccess(data) {
       setTitle(data.title)
+      disableEditing()
       toast.success(`update list ${data.title} success`)
     },
     onError(err) {
