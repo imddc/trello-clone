@@ -1,6 +1,7 @@
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import { db } from '~/lib/db'
+import { ListContainer } from './_components/list-container'
 
 interface BoardIdProsp {
   params: {
@@ -31,7 +32,11 @@ const BoardIdPage = async ({ params }: BoardIdProsp) => {
   })
   console.log(lists)
 
-  return <div>Board Id Page {params.boardId}</div>
+  return (
+    <div className="p-4">
+      <ListContainer data={lists} boardId={params.boardId} />
+    </div>
+  )
 }
 
 export default BoardIdPage
