@@ -1,6 +1,6 @@
 import { MoreHorizontal, X } from 'lucide-react'
 import { List } from 'prisma/prisma-client'
-import React from 'react'
+import React, { ElementRef, useRef } from 'react'
 import { toast } from 'sonner'
 import { deleteList } from '~/actions/delete-list'
 import FormSubmit from '~/components/form/form-submit'
@@ -19,9 +19,11 @@ interface ListOptionsProps {
 }
 
 const ListOptions = ({ data }: ListOptionsProps) => {
+  const closeRef = useRef<ElementRef<'button'>>(null)
   const { execute: executeDelte } = useAction(deleteList, {
     onSuccess(data) {
       toast.success(`list ${data.title} deleted`)
+      closeRef.current?.click()
     },
     onError(err) {
       toast.error(err)
@@ -50,6 +52,7 @@ const ListOptions = ({ data }: ListOptionsProps) => {
 
         <PopoverClose asChild>
           <Button
+            ref={closeRef}
             className="absolute right-2 top-2 size-auto p-2 text-neutral-600"
             variant="ghost"
           >
