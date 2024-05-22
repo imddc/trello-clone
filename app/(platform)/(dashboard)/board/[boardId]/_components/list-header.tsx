@@ -7,6 +7,7 @@ import { useEventListener } from 'usehooks-ts'
 import { updataList } from '~/actions/update-list'
 import FormInput from '~/components/form/form-input'
 import { useAction } from '~/hooks/useAction'
+import ListOptions from './list-options'
 
 interface ListHeaderProps {
   data: List
@@ -89,6 +90,8 @@ const ListHeader = ({ data }: ListHeaderProps) => {
           {data.title}
         </div>
       )}
+
+      <ListOptions data={data} />
     </div>
   )
 }
