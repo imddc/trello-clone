@@ -1,10 +1,11 @@
-// import { RedirectToSignIn } from '@clerk/nextjs'
+import { RedirectToSignIn } from '@clerk/nextjs'
 import { authMiddleware } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 
 // export default clerkMiddleware({})
 export default authMiddleware({
   publicRoutes: ['/'],
+  // @ts-ignore
   afterAuth: async (auth, req) => {
     const { orgId, userId, isPublicRoute } = auth
     if (userId && isPublicRoute) {
@@ -20,9 +21,9 @@ export default authMiddleware({
     }
 
     // TODO: logout
-    // if (!userId && !isPublicRoute) {
-    //   return RedirectToSignIn({ redirectUrl: req.url })
-    // }
+    if (!userId && !isPublicRoute) {
+      return RedirectToSignIn({ redirectUrl: req.url })
+    }
 
     if (userId && !orgId && req.nextUrl.pathname !== '/select-org') {
       const orgSelection = new URL('select-org', req.url)

@@ -30,8 +30,6 @@ const BoardIdPage = async ({ params }: BoardIdProsp) => {
       }
     }
   })
-  console.log(lists)
-
   return (
     <div className="p-4">
       <ListContainer data={lists} boardId={params.boardId} />

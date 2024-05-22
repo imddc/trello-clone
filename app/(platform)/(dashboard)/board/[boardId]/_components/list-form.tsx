@@ -24,6 +24,9 @@ const ListForm = () => {
       toast.success(`create list ${data.title} success`)
       disableEditing()
       router.refresh()
+    },
+    onError(err) {
+      toast.error(err)
     }
   })
 
