@@ -1,6 +1,8 @@
 import { MoreHorizontal, X } from 'lucide-react'
 import { List } from 'prisma/prisma-client'
 import React from 'react'
+import { toast } from 'sonner'
+import { deleteList } from '~/actions/delete-list'
 import FormSubmit from '~/components/form/form-submit'
 import { Button } from '~/components/ui/button'
 import {
@@ -10,12 +12,29 @@ import {
   PopoverTrigger
 } from '~/components/ui/popover'
 import { Separator } from '~/components/ui/separator'
+import { useAction } from '~/hooks/useAction'
 
 interface ListOptionsProps {
   data: List
 }
 
 const ListOptions = ({ data }: ListOptionsProps) => {
+  const { execute: executeDelte } = useAction(deleteList, {
+    onSuccess(data) {
+      toast.success(`list ${data.title} deleted`)
+    },
+    onError(err) {
+      toast.error(err)
+    }
+  })
+
+  const deleteSubmit = (formData: FormData) => {
+    const id = formData.get('id') as string
+    const boardId = formData.get('boardId') as string
+
+    executeDelte({ id, boardId })
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -29,7 +48,7 @@ const ListOptions = ({ data }: ListOptionsProps) => {
           List actions
         </div>
 
-        <PopoverClose>
+        <PopoverClose asChild>
           <Button
             className="absolute right-2 top-2 size-auto p-2 text-neutral-600"
             variant="ghost"
@@ -61,8 +80,10 @@ const ListOptions = ({ data }: ListOptionsProps) => {
             Copy list...
           </FormSubmit>
         </form>
+
         <Separator className="space-y-2" />
-        <form>
+
+        <form action={deleteSubmit}>
           <input hidden name="id" id="id" value={data.id} readOnly />
           <input
             hidden
