@@ -1,12 +1,12 @@
 'use client'
 
-import { List } from 'prisma/prisma-client'
 import { useEffect, useState } from 'react'
+import { ListWithCards } from '~/types'
 import ListForm from './list-form'
 import ListItem from './list-item'
 
 interface ListContainerProps {
-  data: List[]
+  data: ListWithCards[]
   boardId: string
 }
 
