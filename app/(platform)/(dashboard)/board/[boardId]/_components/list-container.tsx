@@ -1,4 +1,7 @@
+'use client'
+
 import { List } from 'prisma/prisma-client'
+import { useState } from 'react'
 import ListForm from './list-form'
 
 interface ListContainerProps {
@@ -7,6 +10,8 @@ interface ListContainerProps {
 }
 
 export const ListContainer = ({ data, boardId }: ListContainerProps) => {
+  const [orderedDate, setOrderedDate] = useState(data)
+
   return (
     <ol>
       <ListForm />
