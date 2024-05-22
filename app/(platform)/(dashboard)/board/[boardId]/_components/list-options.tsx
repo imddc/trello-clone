@@ -17,9 +17,10 @@ import { useAction } from '~/hooks/useAction'
 
 interface ListOptionsProps {
   data: List
+  onAddCard: () => void
 }
 
-const ListOptions = ({ data }: ListOptionsProps) => {
+const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
   const closeRef = useRef<ElementRef<'button'>>(null)
   const { execute: executeDelte } = useAction(deleteList, {
     onSuccess(data) {
@@ -79,6 +80,7 @@ const ListOptions = ({ data }: ListOptionsProps) => {
         <Button
           className="h-auto w-full justify-start rounded-none p-2 px-5 text-sm font-normal"
           variant="ghost"
+          onClick={onAddCard}
         >
           Add card...
         </Button>
