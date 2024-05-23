@@ -42,16 +42,23 @@ const ListItem = ({ data, index }: ListItemProps) => {
           >
             <ListHeader data={data} onAddCard={enableEditing} />
 
-            <ol
-              className={cn(
-                'mx-1 flex flex-col gap-y-2 px-1 py-0.5',
-                data.cards.length > 0 ? 'mt-2' : 'mt-0'
+            <Droppable type="card" droppableId={data.id}>
+              {(provided) => (
+                <ol
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className={cn(
+                    'mx-1 flex flex-col gap-y-2 px-1 py-0.5',
+                    data.cards.length > 0 ? 'mt-2' : 'mt-0'
+                  )}
+                >
+                  {data.cards.map((card, idx) => (
+                    <CardItem key={card.id} data={card} index={idx} />
+                  ))}
+                  {provided.placeholder}
+                </ol>
               )}
-            >
-              {data.cards.map((card) => (
-                <CardItem key={card.id} data={card} />
-              ))}
-            </ol>
+            </Droppable>
 
             <CardForm
               ref={textareaRef}
