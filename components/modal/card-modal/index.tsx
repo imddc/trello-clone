@@ -20,6 +20,8 @@ const CardModal = () => {
     queryFn: () => fetcher(`/api/cards/${id}`)
   })
 
+  // TODO: add activity list
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
