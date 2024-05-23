@@ -86,7 +86,7 @@ const CardModalDescription = ({ data }: CardModalDescriptionProps) => {
               errors={fieldErrors}
             />
             <div className="flex items-center gap-x-2">
-              <FormSubmit>Save</FormSubmit>
+              <FormSubmit variant="primary">Save</FormSubmit>
               <Button
                 type="button"
                 onClick={disableEditing}

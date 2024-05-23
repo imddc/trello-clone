@@ -6,6 +6,7 @@ import { Dialog, DialogContent } from '~/components/ui/dialog'
 import { useCardModal } from '~/hooks/useCardModal'
 import { fetcher } from '~/lib/fetcher'
 import { CardWithList } from '~/types'
+import CardModalAction from './action'
 import CardModalDescription from './description'
 import CardModalHeader from './header'
 
@@ -18,8 +19,6 @@ const CardModal = () => {
     queryKey: ['card', id],
     queryFn: () => fetcher(`/api/cards/${id}`)
   })
-
-  console.log(cardData)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -40,6 +39,12 @@ const CardModal = () => {
               )}
             </div>
           </div>
+
+          {!cardData ? (
+            <CardModalAction.Skeleton />
+          ) : (
+            <CardModalAction data={cardData} />
+          )}
         </div>
       </DialogContent>
     </Dialog>
