@@ -6,6 +6,7 @@ import { Dialog, DialogContent } from '~/components/ui/dialog'
 import { useCardModal } from '~/hooks/useCardModal'
 import { fetcher } from '~/lib/fetcher'
 import { CardWithList } from '~/types'
+import CardModalDescription from './description'
 import CardModalHeader from './header'
 
 const CardModal = () => {
@@ -28,6 +29,18 @@ const CardModal = () => {
         ) : (
           <CardModalHeader.Skeleton />
         )}
+
+        <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
+          <div className="col-span-3">
+            <div className="w-full space-y-6">
+              {!cardData ? (
+                <CardModalDescription.Skeleton />
+              ) : (
+                <CardModalDescription data={cardData} />
+              )}
+            </div>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   )

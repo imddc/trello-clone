@@ -1,6 +1,6 @@
 'use client'
 
-import { QueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { Layout } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import React, { ElementRef, useRef, useState } from 'react'
@@ -16,7 +16,7 @@ interface CardModalHeaderProps {
 }
 
 const CardModalHeader = ({ data }: CardModalHeaderProps) => {
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient()
   const params = useParams()
   const [title, setTitle] = useState(data.title)
   const inputRef = useRef<ElementRef<'input'>>(null)
