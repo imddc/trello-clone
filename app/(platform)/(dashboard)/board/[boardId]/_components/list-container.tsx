@@ -1,9 +1,9 @@
 'use client'
 
 import { DragDropContext, Droppable } from '@hello-pangea/dnd'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { updataCardOrder } from '~/actions/update-card-order'
 import { updataListOrder } from '~/actions/update-list-order'
 import { useAction } from '~/hooks/useAction'
 import { ListWithCards } from '~/types'
@@ -27,12 +27,19 @@ const reorderlist = <T = any,>(
 }
 
 export const ListContainer = ({ data, boardId }: ListContainerProps) => {
-  const router = useRouter()
   const [orderedData, setOrderedData] = useState(data)
   const { execute: updataListOrderExecute } = useAction(updataListOrder, {
     onSuccess() {
       toast.success('list reordered')
-      router.refresh()
+    },
+    onError(err) {
+      toast.error(err)
+    }
+  })
+
+  const { execute: updataCardOrderExecute } = useAction(updataCardOrder, {
+    onSuccess() {
+      toast.success('card reordered')
     },
     onError(err) {
       toast.error(err)
@@ -64,7 +71,7 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
         destination.index
       ).map((item, index) => ({ ...item, order: index }))
       setOrderedData(items)
-      // TODO: modify api
+      // [x]: modify api
       updataListOrderExecute({ items, boardId })
     }
 
@@ -98,7 +105,8 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
         // then change the prop cards,because of reference ,newOrderedData was changed too;
         destList.cards = reOrderedData
         setOrderedData(newOrderedData)
-        // TODO: trigger server action
+        // [x]: trigger server action
+        updataCardOrderExecute({ items: reOrderedData, boardId })
       } else {
         // different list
         const [movedCard] = sourceList.cards.splice(source.index, 1)
@@ -112,7 +120,8 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
           item.order = idx
         })
         setOrderedData(newOrderedData)
-        // TODO: trigger server action
+        // [x]: trigger server action
+        updataCardOrderExecute({ items: destList.cards, boardId })
       }
     }
   }
