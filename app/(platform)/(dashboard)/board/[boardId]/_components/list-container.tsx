@@ -31,12 +31,13 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
 
   const onDragEnd = (e: any) => {
     const { destination, source, type } = e
+
     if (!destination) {
       return
     }
 
     if (
-      destination.droppableid === source.droppagleId &&
+      destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
       return
@@ -82,12 +83,13 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
         // then change the prop cards,because of reference ,newOrderedData was changed too;
         destList.cards = reOrderedData
         setOrderedData(newOrderedData)
-        // TODO: make server action of same list card
+        // TODO: trigger server action
       } else {
         // different list
-        const [removedCard] = sourceList.cards.splice(source.index, 1)
-        removedCard.listId = destination.droppableId
-        destList.cards.splice(destination.index, 0, removedCard)
+        const [movedCard] = sourceList.cards.splice(source.index, 1)
+        console.log(destination)
+        movedCard.listId = destination.droppableId
+        destList.cards.splice(destination.index, 0, movedCard)
         sourceList.cards.forEach((item, idx) => {
           item.order = idx
         })
@@ -95,6 +97,7 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
           item.order = idx
         })
         setOrderedData(newOrderedData)
+        // TODO: trigger server action
       }
     }
   }
