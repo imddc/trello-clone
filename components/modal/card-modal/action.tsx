@@ -5,9 +5,11 @@ import { useParams } from 'next/navigation'
 import React from 'react'
 import { toast } from 'sonner'
 import { copyCard } from '~/actions/copy-card'
+import { deleteCard } from '~/actions/delete-card'
 import { Button } from '~/components/ui/button'
 import { Skeleton } from '~/components/ui/skeleton'
 import { useAction } from '~/hooks/useAction'
+import { useCardModal } from '~/hooks/useCardModal'
 import { CardWithList } from '~/types'
 
 interface CardModalActionProps {
@@ -16,18 +18,39 @@ interface CardModalActionProps {
 
 const CardModalAction = ({ data }: CardModalActionProps) => {
   const params = useParams()
-  const { execute } = useAction(copyCard, {
+  const cardModal = useCardModal()
+
+  const { execute: copyExecute, isLoading: copyLoading } = useAction(copyCard, {
     onSuccess(data) {
-      toast.success(`card ${data.title} copyed`)
+      toast.success(`card ${data.title} copied`)
+      cardModal.onClose()
     },
     onError(err) {
       toast.error(err)
     }
   })
 
+  const { execute: deleteExecute, isLoading: delLoading } = useAction(
+    deleteCard,
+    {
+      onSuccess(data) {
+        toast.success(`card ${data.title} deleted`)
+        cardModal.onClose()
+      },
+      onError(err) {
+        toast.error(err)
+      }
+    }
+  )
+
   const handleCopy = () => {
     const boardId = params.boardId as string
-    execute({ id: data.id, boardId })
+    copyExecute({ id: data.id, boardId })
+  }
+
+  const handleDelete = () => {
+    const boardId = params.boardId as string
+    deleteExecute({ id: data.id, boardId })
   }
 
   return (
@@ -37,13 +60,20 @@ const CardModalAction = ({ data }: CardModalActionProps) => {
         variant="gray"
         className="w-full justify-start"
         size="inline"
+        disabled={copyLoading}
         onClick={handleCopy}
       >
         <Copy className="mr-2 size-4" />
         Copy
       </Button>
 
-      <Button variant="gray" className="w-full justify-start" size="inline">
+      <Button
+        variant="gray"
+        className="w-full justify-start"
+        size="inline"
+        disabled={delLoading}
+        onClick={handleDelete}
+      >
         <Trash className="mr-2 size-4" />
         Delete
       </Button>
