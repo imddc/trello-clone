@@ -67,7 +67,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     })
   } catch (err) {
     return {
-      error: 'faild to delete board'
+      error: 'faild to copy board'
     }
   }
 
