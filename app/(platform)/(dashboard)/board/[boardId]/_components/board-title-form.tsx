@@ -40,7 +40,7 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
   }
   const onSubmit = (formData: FormData) => {
     const title = formData.get('title') as string
-    execute({ id: data.id, title })
+    execute({ id: data.id, title, boardId: data.id })
   }
   const onBlur = () => {
     formRef.current?.requestSubmit()

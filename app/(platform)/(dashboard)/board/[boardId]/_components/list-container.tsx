@@ -1,7 +1,11 @@
 'use client'
 
 import { DragDropContext, Droppable } from '@hello-pangea/dnd'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { updataListOrder } from '~/actions/update-list-order'
+import { useAction } from '~/hooks/useAction'
 import { ListWithCards } from '~/types'
 import ListForm from './list-form'
 import ListItem from './list-item'
@@ -23,7 +27,17 @@ const reorderlist = <T = any,>(
 }
 
 export const ListContainer = ({ data, boardId }: ListContainerProps) => {
+  const router = useRouter()
   const [orderedData, setOrderedData] = useState(data)
+  const { execute: updataListOrderExecute } = useAction(updataListOrder, {
+    onSuccess() {
+      toast.success('list reordered')
+      router.refresh()
+    },
+    onError(err) {
+      toast.error(err)
+    }
+  })
 
   useEffect(() => {
     setOrderedData(data)
@@ -51,6 +65,7 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
       ).map((item, index) => ({ ...item, order: index }))
       setOrderedData(items)
       // TODO: modify api
+      updataListOrderExecute({ items, boardId })
     }
 
     if (type === 'card') {

@@ -22,6 +22,9 @@ const BoardIdPage = async ({ params }: BoardIdProsp) => {
         orgId
       }
     },
+    orderBy: {
+      order: 'asc'
+    },
     include: {
       cards: {
         orderBy: {
