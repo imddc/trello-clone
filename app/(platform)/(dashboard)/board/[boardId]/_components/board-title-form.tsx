@@ -40,19 +40,21 @@ const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
   }
   const onSubmit = (formData: FormData) => {
     const title = formData.get('title') as string
+    if (title === data.title) {
+      disableEditing()
+      return
+    }
+
     execute({ id: data.id, title, boardId: data.id })
   }
+
   const onBlur = () => {
     formRef.current?.requestSubmit()
   }
 
   if (isEditing) {
     return (
-      <form
-        action={onSubmit}
-        ref={formRef}
-        className="flex items-center gap-x-2"
-      >
+      <form action={onSubmit} ref={formRef} className="flex-center gap-x-2">
         <FormInput
           ref={inputRef}
           id="title"
