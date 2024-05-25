@@ -24,6 +24,7 @@ export async function GET(
       },
       take: 3
     })
+    return NextResponse.json(auditLogs)
   } catch (err) {
     return new NextResponse('Internal Error', { status: 500 })
   }

@@ -29,7 +29,7 @@ export const createAuditLog = async (props: Props) => {
         action,
         userId: user.id,
         userImage: user?.imageUrl,
-        UserName: user?.firstName + ' ' + user.lastName
+        UserName: (user?.firstName || '') + ' ' + (user.lastName || '')
       }
     })
   } catch (error) {
