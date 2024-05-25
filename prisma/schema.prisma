@@ -87,3 +87,12 @@ model AuditLog {
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
+
+model OrgLimit {
+  id    String @id @default(uuid())
+  orgId String @unique
+  count Int    @default(0)
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}

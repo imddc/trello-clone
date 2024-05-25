@@ -32,6 +32,7 @@ const FormPopover = ({
   const router = useRouter()
   const closeRef = useRef<ElementRef<'button'>>(null)
 
+  // [x]: why the error don't work?
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess(data) {
       toast.success('board created')
@@ -39,7 +40,7 @@ const FormPopover = ({
       router.push(`/board/${data.id}`)
     },
     onError(error) {
-      toast.error('board creation failed')
+      toast.error(error)
     }
   })
   const onSubmit = (formData: FormData) => {

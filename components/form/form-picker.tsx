@@ -8,6 +8,7 @@ import { useFormStatus } from 'react-dom'
 import { images as defaultImages, ImageType } from '~/constants/images'
 import { unsplash } from '~/lib/unsplash'
 import { cn } from '~/lib/utils'
+import FormErrors from './form-error'
 
 interface FormPickerProps {
   id: string
@@ -98,6 +99,7 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
           </div>
         ))}
       </div>
+      <FormErrors id={id} errors={errors} />
     </div>
   )
 }

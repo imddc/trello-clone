@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { ACTION, ENTITY_TYPE } from 'prisma/prisma-client'
 import { createAuditLog } from '~/lib/create-audit-log'
 import { db } from '~/lib/db'
+import { hasAvailableCount, incrementAvailableCount } from '~/lib/org-limit'
 import { createSafeAction } from './../../lib/crate-safe-action'
 import { CreateBoard } from './schema'
 import { InputType, ReturnType } from './types'
@@ -14,7 +15,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   if (!userId || !orgId) {
     return {
-      error: 'unauthorized'
+      error: 'Unauthorized'
+    }
+  }
+
+  const canCreate = await hasAvailableCount()
+  if (!canCreate) {
+    return {
+      error:
+        'You have reached your limit of free boards. Please upgrade to crate more.'
     }
   }
 
@@ -49,6 +58,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         imageLinkHTML
       }
     })
+
+    await incrementAvailableCount()
 
     await createAuditLog({
       entityId: board.id,
