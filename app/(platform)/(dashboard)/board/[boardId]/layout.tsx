@@ -1,4 +1,5 @@
 import { auth } from '@clerk/nextjs/server'
+import { Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 import { PropsWithChildren } from 'react'
 import { db } from '~/lib/db'
@@ -8,13 +9,15 @@ interface BoardIdLayoutProps extends PropsWithChildren {
   params: { boardId: string }
 }
 
-export async function generateMateData({
+export async function generateMetadata({
   params: { boardId }
-}: BoardIdLayoutProps) {
+}: BoardIdLayoutProps): Promise<Metadata> {
   const { orgId } = auth()
 
   if (!orgId) {
-    return 'Board'
+    return {
+      title: 'Board'
+    }
   }
 
   const board = await db.board.findUnique({
